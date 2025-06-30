@@ -1,0 +1,131 @@
+<!-- index.html (Galaxy Hub Scene) -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Galactic Gateway VR</title>
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-extras@6.1.1/dist/aframe-extras.min.js"></script>
+  </head>
+  <body>
+<!-- Custom Loading Screen -->
+<style>
+  #loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, #000015 0%, #000 100%);
+    color: #00ccff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    text-shadow: 0 0 10px #0ff;
+    flex-direction: column;
+  }
+  #loader span {
+    animation: blink 1.2s infinite;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+</style>
+
+<div id="loader">
+  🌌 Loading Galactic VR World...<br><span>⏳</span>
+</div>
+
+<a-scene background="color:black" raycaster="objects: .clickable" loading-screen="enabled: false">
+
+  <!-- All assets -->
+  <a-assets>
+    <img id="space-sky" src="space6.jpg">
+    <a-asset-item id="sun-model" src="sun_model.glb"></a-asset-item>
+    <a-asset-item id="planet1" src="lava_planet.glb"></a-asset-item>
+    <a-asset-item id="planet2" src="purple_planet.glb"></a-asset-item>
+    <a-asset-item id="planet3" src="green_planet.glb"></a-asset-item>
+    <audio id="sound" src="space-chords-loop-310493.mp3" preload="auto"></audio>
+  </a-assets>
+
+  <a-sky src="#space-sky" rotation="0 -90 0"></a-sky>
+
+  <a-sound src="#sound" autoplay="true" loop="true" volume="3" positional="true"></a-sound>
+
+  <!-- Central Star -->
+  <a-entity id="sun-wrapper" position="0 1.6 -5"
+            animation="property: rotation; to: 0 360 0; loop: true; dur: 50000">
+    <a-entity gltf-model="#sun-model"
+              animation-mixer
+              scale="0.003 0.003 0.003">
+    </a-entity>
+  </a-entity>
+
+  <!-- Lights -->
+  <a-entity light="type: ambient; color: #ffffff; intensity: 0.5"></a-entity>
+  <a-entity light="type: directional; color: yellow; intensity: 1.5" position="0 5 5"></a-entity>
+  <a-entity light="type: point; color: yellow; intensity: 2; distance: 50" position="0 1.6 -5"></a-entity>
+
+  <!-- Planet 1 -->
+  <a-entity id="p1-orbit" position="0 1.6 -5"
+            animation="property: rotation; to: 0 360 0; loop: true; dur: 30000">
+    <a-entity gltf-model="#planet1"
+              animation-mixer
+              id="p1" class="clickable" position="7 0 0">
+    </a-entity>
+  </a-entity>
+
+  <!-- Planet 2 -->
+  <a-entity id="p2-orbit" position="0 1.6 -5"
+            animation="property: rotation; to: 0 360 0; loop: true; dur: 32000">
+    <a-entity gltf-model="#planet2"
+              animation-mixer
+              id="p2" class="clickable" position="15 0.1 0">
+    </a-entity>
+  </a-entity>
+
+  <!-- Planet 3 -->
+  <a-entity id="p3-orbit" position="0 1.6 -5"
+            animation="property: rotation; to: 0 360 0; loop: true; dur: 45000">
+    <a-entity gltf-model="#planet3"
+              animation-mixer
+              scale="0.005 0.005 0.005"
+              id="p3" class="clickable" position="18 -0.1 0">
+    </a-entity>
+  </a-entity>
+
+  <!-- Planet 4 (sphere) -->
+  <a-entity id="p4-orbit" position="0 1.6 -5"
+            animation="property: rotation; to: 0 360 0; loop: true; dur: 40000">
+    <a-sphere id="p4" position="23 2 0" radius="0.6" color="#cc66ff"></a-sphere>
+  </a-entity>
+
+  <!-- Camera & Cursor -->
+  <a-entity camera look-controls wasd-controls position="0 1 12">
+    <a-cursor geometry="radiusInner:0.05; radiusOuter:0.08"></a-cursor>
+  </a-entity>
+
+</a-scene>
+
+<script>
+  const loader = document.getElementById('loader');
+  const scene = document.querySelector('a-scene');
+  const assets = document.querySelector('a-assets');
+
+  assets.addEventListener('loaded', () => {
+    loader.style.display = 'none';
+  });
+</script>
+
+<script>
+  document.querySelector('#p1')?.addEventListener('click', () => window.location.href = 'p1.html');
+  document.querySelector('#p2')?.addEventListener('click', () => window.location.href = 'p2.html');
+  document.querySelector('#p3')?.addEventListener('click', () => window.location.href = 'p3.html');
+  document.querySelector('#p4')?.addEventListener('click', () => window.location.href = 'last.html');
+</script>
+
+</body>
+</html>

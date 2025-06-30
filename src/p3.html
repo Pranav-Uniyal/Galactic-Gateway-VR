@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Green World</title>
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-extras@6.1.1/dist/aframe-extras.min.js"></script>
+    <style>
+      #loader {
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        background: black;
+        color: cyan;
+        font-family: monospace;
+        font-size: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- LOADING SCREEN -->
+    <div id="loader">Loading New World...</div>
+
+    <a-scene background="color:black">
+
+      <!-- Camera -->
+      <a-entity position="-14 9 175">
+        <a-camera look-controls wasd-controls>
+          <a-cursor geometry="radiusInner:0.05; radiusOuter:0.07"></a-cursor>
+        </a-camera>
+      </a-entity>
+
+      <a-assets id="assets">
+        <a-asset-item id="city-model" src="mystical_forest_cartoon.glb"></a-asset-item>
+        <audio id="sound1" src="forest-woodpecker-322636.mp3" preload="auto"></audio>
+        <audio id="sound2" src="forest-nature-322637.mp3" preload="auto"></audio>
+      </a-assets>
+
+      <!-- Ground -->
+      <a-plane rotation="-90 0 0">
+        <!-- Models -->
+         <a-cylinder position="0 0 -1" rotation="90 0 0" height="0.8" radius="5.5" src="#sci-texture">
+          <a-sound src="#sound1" autoplay="true" loop="true" volume="0.5" positional="false"></a-sound>
+         </a-cylinder>
+        <a-entity 
+          id="city"
+          gltf-model="#city-model"
+          animation-mixer
+          scale="0.05 0.05 0.05"
+          rotation="90 0 0"
+          position="0 0 0">
+          <a-sound src="#sound2" autoplay="true" loop="true" volume="1" positional="false"></a-sound>
+        </a-entity>
+      </a-plane>
+
+      <a-text value="BACK" position="-15 8 -150" color="purple" width="80" rotation="0 45 0" id="back"></a-text>
+    </a-scene>
+
+    <script>
+      const assets = document.querySelector('#assets');
+      const loader = document.getElementById('loader');
+
+      assets.addEventListener('loaded', () => {
+        setTimeout(() => loader.style.display = 'none', 500);
+      });
+
+      setTimeout(() => loader.style.display = 'none', 10000); // 10 seconds max
+    </script>
+    <script>
+      document.querySelector('#back').addEventListener('click', () => {
+        window.location.href = 'index.html';
+      });
+    </script>
+  </body>
+</html>

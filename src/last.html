@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>The End</title>
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-extras@6.1.1/dist/aframe-extras.min.js"></script>
+    
+     <style>
+      #loader {
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        background: black;
+        color: cyan;
+        font-family: monospace;
+        font-size: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="loader">Loading New World...</div>
+
+    <a-scene>
+
+      <a-entity position="3 4 28">
+        <a-camera look-controls wasd-controls>
+          <a-cursor geometry="radiusInner:0.05; radiusOuter:0.07"></a-cursor>
+        </a-camera>
+      </a-entity>
+
+      <a-assets id="assets">
+        <a-asset-item id="model" src="portal_night_version.glb"></a-asset-item>
+        <audio id="sound1" src="wind-chimes-32150.mp3" preload="auto"></audio>
+        <audio id="sound2" src="wind-outside-sound-ambient-141989.mp3" preload="auto"></audio>
+      </a-assets>
+
+      <a-entity gltf-model="#model"
+                animation-mixer
+                scale="0.01 0.01 0.01"
+                rotation="0 90 0"
+                ><a-sound src="#sound1" autoplay="true" loop="true" volume="0.5" positional="false"></a-sound>
+                <a-sound src="#sound2" autoplay="true" loop="true" volume="4" positional="true"></a-sound>
+              </a-entity>
+           
+        <a-text value="Thanks For Visiting" position="-7 2.5 -5"  color="purple" width="10" rotation="0 100 0 " ></a-text>
+        <a-text value="Creator: Pranav Uniyal" position="-7 2 -5"  color="purple" width="10" rotation="0 100 0" ></a-text>
+
+        <a-text value="BACK" position="-12 2 -30"  color="purple" width="30" rotation="0 90 0" id="back" ></a-text>
+    </a-scene>
+
+    <script>
+      const assets = document.querySelector('#assets');
+      const loader = document.getElementById('loader');
+
+      assets.addEventListener('loaded', () => {
+        setTimeout(() => loader.style.display = 'none', 500);
+      });
+
+      setTimeout(() => loader.style.display = 'none', 10000); // 10 seconds max
+    </script>
+
+    <script>
+      document.querySelector('#back').addEventListener('click', () => {
+        window.location.href = 'index.html';
+      });
+    </script>
+  </body>
+</html>

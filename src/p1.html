@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sci-Fi City</title>
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-extras@6.1.1/dist/aframe-extras.min.js"></script>
+    <style>
+      #loader {
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        background: black;
+        color: cyan;
+        font-family: monospace;
+        font-size: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- LOADING SCREEN -->
+    <div id="loader">Loading New World...</div>
+
+    <a-scene>
+        <!-- Camera -->
+      <a-entity position="0 3.5 12">
+        <a-camera look-controls wasd-controls>
+          <a-cursor geometry="radiusInner:0.05; radiusOuter:0.07"></a-cursor>
+        </a-camera>
+      </a-entity>
+      <a-assets id="assets">
+        <img id="sci" src="sci2.jpg">
+        <audio id="sound" src="game-of-thrones-theme-song-ringtone-30782.mp3" preload="auto"></audio>
+        <a-asset-item id="portal" src="sci-fi_portal_-_asset.glb"></a-asset-item>
+        <a-asset-item id="model" src="free_fire_old_rampage_lobby_3d_model.glb"></a-asset-item>
+      </a-assets>
+      <a-sky src="#sci"></a-sky>
+        <a-sound src="#sound" autoplay="true" loop="true" volume="3" positional="true"></a-sound>
+        
+      <a-plane color="grey" height="10" width="10" rotation="-90 0 0">
+         <a-entity gltf-model="#portal"
+                animation-mixer
+                rotation="90 0 0"
+                position="4 2.5 4.5"
+                id="portal1"
+                >
+            <a-text value="CLICK ON PORTAL"  color="purple" width="2" position="-1 0.5 0.5" ></a-text></a-entity>
+      <a-entity gltf-model="#model"
+                animation-mixer
+                rotation="90 0 0"
+                position="0 0 0"
+                ></a-entity>
+            </a-plane>
+    </a-scene>
+
+    <script>
+      const assets = document.querySelector('#assets');
+      const loader = document.getElementById('loader');
+
+      assets.addEventListener('loaded', () => {
+        setTimeout(() => loader.style.display = 'none', 500);
+      });
+
+      setTimeout(() => loader.style.display = 'none', 10000); // 10 seconds max
+    </script>
+
+    <script>
+      document.querySelector('#portal1').addEventListener('click', () => {
+        window.location.href = 'last.html';
+      });
+    </script>
+  </body>
+</html>

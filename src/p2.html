@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cyber World</title>
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-extras@6.1.1/dist/aframe-extras.min.js"></script>
+    <style>
+      #loader {
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        background: black;
+        color: cyan;
+        font-family: monospace;
+        font-size: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- LOADING SCREEN -->
+    <div id="loader">Loading New World...</div>
+
+    <a-scene background="color:black">
+
+      <!-- Camera -->
+      <a-entity position="-22 0 120">
+        <a-camera look-controls wasd-controls>
+          <a-cursor geometry="radiusInner:0.03; radiusOuter:0.07"></a-cursor>
+        </a-camera>
+      </a-entity>
+
+      <a-assets id="assets">
+        <img id="sci-texture" src="sci.jpg">
+        <audio id="sound" src="rockthatbo_lkfvutf3.mp3" preload="auto"></audio>
+        <a-asset-item id="girl-model" src="fractal_girl_dancing.glb"></a-asset-item>
+        <a-asset-item id="city-model" src="the_uxr.zone_city_v01.glb"></a-asset-item>
+      </a-assets>
+
+      <!-- Ground -->
+      <a-plane rotation="-90 0 0">
+        <a-cylinder position="0 0 -0.5" rotation="90 0 0" height="0.2" radius="5" src="#sci-texture"></a-cylinder>
+        <a-cylinder position="0 0 -1" rotation="90 0 0" height="0.8" radius="5.5" src="#sci-texture"></a-cylinder>
+        <!-- Models -->
+        <a-entity 
+          id="girl"
+          gltf-model="#girl-model"
+          animation-mixer
+          scale="12 12 12"
+          rotation="90 0 0"
+          position="0 0 0.8">
+          <a-sound src="#sound" autoplay="true" loop="true" volume="1" positional="false"></a-sound>
+        </a-entity>
+
+        <a-entity 
+          id="city"
+          gltf-model="#city-model"
+          animation-mixer
+          scale="2 2 2"
+          rotation="90 0 0"
+          position="0 0 0">
+        </a-entity>
+      </a-plane>
+
+      <a-text value="BACK" position="-20 2 -80" color="purple" width="50" rotation="0 45 0" id="back"></a-text>
+    </a-scene>
+
+    <script>
+      const assets = document.querySelector('#assets');
+      const loader = document.getElementById('loader');
+
+      assets.addEventListener('loaded', () => {
+        setTimeout(() => loader.style.display = 'none', 500);
+      });
+
+      setTimeout(() => loader.style.display = 'none', 10000); // 10 seconds max
+    </script>
+    <script>
+      document.querySelector('#back').addEventListener('click', () => {
+        window.location.href = 'index.html';
+      });
+    </script>
+  </body>
+</html>
