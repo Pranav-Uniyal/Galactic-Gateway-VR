@@ -38,7 +38,7 @@ src/
 ├── last.html  # 4th Planet
 ├── Models/ # .glb and 3D files
 ├── Images/ # .jpg/.png background textures
-└── Audio/ # Background music
+└── Audios/ # Background music
 ```
 ---
 
