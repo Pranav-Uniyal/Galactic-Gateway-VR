@@ -23,7 +23,7 @@
 
 ## 🌐 Live Demo
 
-**[Live](https://galactic-gateway-vr.netlify.app/)**
+## [Live](https://galactic-gateway-vr.netlify.app/)
 
 ---
 
